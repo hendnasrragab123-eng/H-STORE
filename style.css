@@ -868,4 +868,37 @@ footer {
     font-weight: bold;
     color: #ff6b81;
   }
-  
+  /* ==========================================
+   📱 Mobile Responsive Fixes
+   ========================================== */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .container, 
+  header, 
+  nav, 
+  main, 
+  footer {
+    width: 100% !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Grid adjustment for products */
+  .products-grid, 
+  .grid, 
+  .product-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    gap: 15px !important;
+  }
+
+  /* Images responsive */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
