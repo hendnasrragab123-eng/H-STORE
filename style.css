@@ -902,3 +902,65 @@ footer {
     height: auto !important;
   }
 }
+/* ==========================================
+   📱 Mobile Viewport Fixes (H-STORE)
+   ========================================== */
+
+/* 1. منع الصفحة من التزحزح يمين وشمال */
+html, body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. ضبط كل الصور لتتجاوب مع حجم الموبايل */
+img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* 3. تعديل التنسيق عند فتح الموقع من الموبايل */
+@media (max-width: 768px) {
+  
+  /* الهيدر والقائمة الرئيسية */
+  header, nav, .navbar, .nav-container, .announcement-bar {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 10px !important;
+  }
+
+  /* خانة البحث والأزرار */
+  input[type="text"], .search-box, .search-bar {
+    width: 90% !important;
+    max-width: 100% !important;
+    margin: 5px auto !important;
+  }
+
+  /* أقسام التنقل (السلاسل، الخواتم...) */
+  .categories, .nav-links, .menu {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    justify-content: center !important;
+    padding: 5px !important;
+  }
+
+  /* شبكة المنتجات والبنرات */
+  .container, .hero, .banner, .products-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* تحويل أي عناصر جنب بعض لتكون فوق بعض على الموبايل */
+  .hero-content, .flex-container {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+}
