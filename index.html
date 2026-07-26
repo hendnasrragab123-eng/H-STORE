@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H-STORE | Luxury Accessories</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- أيقونات FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- خط كلاسيكي فخم (Playfair Display) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Top Announcement Bar -->
+<div class="announcement-bar">
+    <span>✨ شحن مجاني للطلبات الأقوام من 500 ج.م | تغليف هدايا فاخر مجاناً 🌸</span>
+  </div>
+  <!-- Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-gem"></i> H-STORE
+      </div>
+      <nav class="nav-links">
+        <a href="#" class="active" onclick="filterProducts('all')">الكل</a>
+        <a href="#" onclick="filterProducts('chains')">السلاسل</a>
+        <a href="#" onclick="filterProducts('rings')">الخواتم</a>
+        <a href="#" onclick="filterProducts('bracelets')">الأساور</a>
+        <a href="#" onclick="filterProducts('compo')">الكومبوهات</a>
+      </nav> 
+        
+      </nav>
+      <i class="fa-regular fa-heart nav-fav-icon" onclick="showFavorites()" title="المفضلة"></i>
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="ابحثي عن إكسسوارك... 🔍" oninput="searchProducts()">
+            <i class="fa-regular fa-user" onclick="openAuthModal()" style="cursor: pointer;"></i>
+                    <div class="cart-icon" onclick="toggleCart()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-characters">
+        <img src="images/blossom.png" class="ppg-hero blossom" alt="Blossom">
+        <img src="images/bubbles.png" class="ppg-hero bubbles" alt="Bubbles">
+        <img src="images/buttercup.png" class="ppg-hero buttercup" alt="Buttercup">
+      </div>
+    <div class="hero-content">
+      <h1> أشيك إكسسوارات مع H-STORE ! ✨</h1>
+      <p>تشكيلة ستانلس ستيل فخمة ومقاومة للماء بتصاميم  تحفة</p>
+      <button class="btn-primary">تسوقي الآن 💖</button>
+    </div>
+  </section>
+  <!-- Products Section -->
+  <main class="container" id="products-section">
+    <div class="section-title">
+        <img src="images/blossom.png" class="title-ppg-icon" alt="Blossom">
+        <h2>أحدث التشكيلات ✨</h2>
+      </div>
+      <!-- القائمة المنسدلة لترتيب الأسعار (مكانها الجديد هنا) -->
+  <div class="filter-sort-bar">
+    <select id="sort-select" onchange="sortProducts(this.value)">
+      <option value="default">الترتيب الافتراضي</option>
+      <option value="low-high">السعر: من الأقل للأعلى 📈</option>
+      <option value="high-low">السعر: من الأعلى للأقل 📉</option>
+    </select>
+  </div>
+    <!-- شبكة عرض المنتجات -->
+    <div id="products-grid" class="products-grid"></div>
+
+    <!-- الترقيم والصفحات -->
+    <div id="pagination" class="pagination"></div>
+  </main>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-box">
+      <i class="fa-solid fa-gem"></i>
+      <h3>خامات عالية الجودة</h3>
+      <p>استانلس ستيل مقاوم للصدأ تماماً.</p>
+    </div>
+    <div class="feature-box">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h3>ضمان ثبات اللون</h3>
+      <p>قطع مصنوعة لتدوم معكِ طوال العمر بدون تغير لون.</p>
+    </div>
+    <div class="feature-box">
+      <i class="fa-solid fa-gift"></i>
+      <h3>تغليف فاخر</h3>
+      <p>يصلك في علبة هدايا مميزة وأنيقة جداً.</p>
+    </div>
+    <div class="feature-box">
+      <i class="fa-solid fa-truck-fast"></i>
+      <h3>شحن سريع</h3>
+      <p>توصيل آمن وسريع .</p>
+    </div>
+  </section>
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <h2>آراء فتيات H-STORE 💖</h2>
+    <div class="reviews-container">
+      <div class="review-card">
+        <p>"الخامة ستانلس ستيل تحفة وثابتة جداً مش بتغير لون خالص، بجد تسلم إيدكم! 🌸"</p>
+        <span>- مريم أحمد</span>
+      </div>
+      <div class="review-card">
+        <p>"الكومبو يجنن والتغليف كيوت أوي ينفع هدية راقية جداً.. شكراً H-STORE ✨"</p>
+        <span>- سارة محمود</span>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>H-STORE</h3>
+        <p>الأناقة ليست مجرد مظهر، بل هي انطباع تدوم رائحته وحضوره.</p>
+      </div>
+      <div class="footer-links">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="#">جميع المنتجات</a></li>
+          <li><a href="#">الأكثر مبيعاً</a></li>
+          <li><a href="#">العروض</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>تواصل معنا</h4>
+        <p><i class="fab fa-whatsapp"></i> خدمة العملاء عبر الواتساب</p>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2026 H-STORE. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h2>سلة الشراء </h2>
+      <button class="close-btn" onclick="toggleCart()">&times;</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="total-price">
+        <span>الإجمالي:</span>
+        <span id="cart-total">0 ج.م</span>
+      </div>
+      <button class="whatsapp-btn" onclick="checkoutWhatsApp()">
+        <i class="fab fa-whatsapp"></i> إتمام الطلب عبر الواتساب
+      </button>
+    </div>
+  </div>
+  <div id="overlay" class="overlay" onclick="toggleCart()"></div>
+
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+  <!-- Auth Modal (تسجيل الدخول / إنشاء حساب) -->
+<div id="auth-modal" class="modal">
+    <div class="modal-content auth-content">
+      <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+      
+      <!-- تبويبات الاختيار -->
+      <div class="auth-tabs">
+        <button id="tab-login" class="auth-tab-btn active" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+        <button id="tab-signup" class="auth-tab-btn" onclick="switchAuthTab('signup')">إنشاء حساب جديد</button>
+      </div>
+  
+      <!-- نموذج تسجيل الدخول -->
+      <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+        <input type="email" placeholder="البريد الإلكتروني 📧" required>
+        <input type="password" placeholder="كلمة السر 🔒" required>
+        <button type="submit" class="auth-submit-btn">دخول 🚀</button>
+      </form>
+  
+      <!-- نموذج إنشاء حساب -->
+      <form id="signup-form" class="auth-form hidden" onsubmit="handleSignup(event)">
+        <input type="text" placeholder="الاسم بالكامل 👤" required>
+        <input type="email" placeholder="البريد الإلكتروني 📧" required>
+        <input type="tel" placeholder="رقم الموبايل 📱" required>
+        <input type="password" placeholder="كلمة السر 🔒" required>
+        <button type="submit" class="auth-submit-btn">إنشاء حساب جديد ✨</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
