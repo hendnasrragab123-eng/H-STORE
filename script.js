@@ -372,15 +372,45 @@ function closeCheckout() {
   document.getElementById('checkout-modal').style.display = 'none';
 }
 
-// 📩 تحضير وإرسال تفاصيل الطلب على الواتساب
 function sendOrderToWhatsApp(event) {
   event.preventDefault();
 
-  const phoneBrand = "201103801065"; // ⚠️ غيري الرقم هنا برقم الواتساب الخاص بكِ
+  // ⚠️ حطي رقمك هنا بالظبط مكان الرقم ده (201012345678)
+  const phoneBrand = "201012345678"; 
+
   const name = document.getElementById('cust-name').value;
   const phone = document.getElementById('cust-phone').value;
   const address = document.getElementById('cust-address').value;
 
+  let cartItemsText = "";
+  let totalPrice = 0;
+
+  if (typeof cart !== 'undefined' && cart.length > 0) {
+    cart.forEach((item, index) => {
+      cartItemsText += `\n${index + 1}. ${item.name || 'منتج'} - ${item.price} ج.م`;
+      totalPrice += Number(item.price) || 0;
+    });
+  } else {
+    alert("السلة فارغة!");
+    return;
+  }
+
+  const message = `🌸 *طلب جديد من H-STORE* 🌸\n` +
+                  `----------------------------\n` +
+                  `👤 *بيانات العميل:*\n` +
+                  `• الاسم: ${name}\n` +
+                  `• الهاتف: ${phone}\n` +
+                  `• العنوان: ${address}\n\n` +
+                  `🛍️ *المنتجات المطلوبة:*` +
+                  `${cartItemsText}\n\n` +
+                  `💰 *الإجمالي:* ${totalPrice} ج.م\n` +
+                  `----------------------------`;
+
+  // رابط مضمون للواتساب على الموبايل واللاب بدون مشاكل
+  const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneBrand}&text=${encodeURIComponent(message)}`;
+
+  window.location.href = whatsappURL;
+}
   // جلب عناصر السلة (تأكدي من مطابقة اسم المتغير عندك cart)
   let cartItemsText = "";
   let totalPrice = 0;
