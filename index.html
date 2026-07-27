@@ -130,29 +130,29 @@
   </section>
   <!-- ⭐ قسم آراء العملاء -->
 <section class="reviews-section">
-  <h2 class="section-title">آراء أميرات H-STORE 💖</h2>
-  <div class="reviews-container">
-    
-    <div class="review-card">
-      <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p>"الحاجة وصلت بسرعة والأساور خاماتها تحفة بجد وما بتغيرش لون خالص، تسلم إيديكوا!"</p>
-      <h4>- مريم أ.</h4>
+    <h2 class="section-title">آراء أميرات H-STORE 💖</h2>
+    <div class="reviews-container">
+      
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"الحاجة وصلت بسرعة والأساور خاماتها تحفة بجد وما بتغيرش لون خالص، تسلم إيديكوا!"</p>
+        <h4>- مريم أ.</h4>
+      </div>
+  
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"التغليف فخم جداً ينفع هدايا وشكل السلسلة على الحقيقة أحلى بكثير من الصور ✨"</p>
+        <h4>- نورهان ك.</h4>
+      </div>
+  
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"تعامل راقي جداً وذوق، والخواتم مقاساتها مضبوطة بالظبط. مش أخر تعامل أكيد 💕"</p>
+        <h4>- سارة م.</h4>
+      </div>
+  
     </div>
-
-    <div class="review-card">
-      <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p>"التغليف فخم جداً ينفع هدايا وشكل السلسلة على الحقيقة أحلى بكثير من الصور ✨"</p>
-      <h4>- نورهان ك.</h4>
-    </div>
-
-    <div class="review-card">
-      <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p>"تعامل راقي جداً وذوق، والخواتم مقاساتها مضبوطة بالظبط. مش أخر تعامل أكيد 💕"</p>
-      <h4>- سارة م.</h4>
-    </div>
-
-  </div>
-</section>
+  </section>
   <!-- Footer -->
   <footer>
     <div class="footer-container">
@@ -199,67 +199,43 @@
 
   <script src="products.js"></script>
   <script src="script.js"></script>
-  <!-- Auth Modal (تسجيل الدخول / إنشاء حساب) -->
-<div id="auth-modal" class="modal">
-    <div class="modal-content auth-content">
-      <span class="close-modal" onclick="closeAuthModal()">&times;</span>
-      
-      <!-- تبويبات الاختيار -->
-      <div class="auth-tabs">
-        <button id="tab-login" class="auth-tab-btn active" onclick="switchAuthTab('login')">تسجيل الدخول</button>
-        <button id="tab-signup" class="auth-tab-btn" onclick="switchAuthTab('signup')">إنشاء حساب جديد</button>
-      </div>
   
-      <!-- نموذج تسجيل الدخول -->
-      <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
-        <input type="email" placeholder="البريد الإلكتروني 📧" required>
-        <input type="password" placeholder="كلمة السر 🔒" required>
-        <button type="submit" class="auth-submit-btn">دخول 🚀</button>
-      </form>
-  
-      <!-- نموذج إنشاء حساب -->
-      <form id="signup-form" class="auth-form hidden" onsubmit="handleSignup(event)">
-        <input type="text" placeholder="الاسم بالكامل 👤" required>
-        <input type="email" placeholder="البريد الإلكتروني 📧" required>
-        <input type="tel" placeholder="رقم الموبايل 📱" required>
-        <input type="password" placeholder="كلمة السر 🔒" required>
-        <button type="submit" class="auth-submit-btn">إنشاء حساب جديد ✨</button>
-      </form>
-    </div>
   </div>
   <!-- 💬 Floating WhatsApp Button -->
 <a href="https://wa.me/201103801065?text=%D9%87%D9%84%D8%A7%D9%80%20H-STORE%D8%8C%20%D8%AD%D8%A7%D8%A8%D8%A9%20%D8%A3%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA%D9%83%D9%85" 
-   class="whatsapp-float" 
-   target="_blank" 
-   rel="noopener noreferrer" 
-   aria-label="تواصل معنا عبر واتساب">
-    <i class="fab fa-whatsapp whatsapp-icon"></i>
+class="whatsapp-float" 
+target="_blank" 
+rel="noopener noreferrer" 
+aria-label="تواصل معنا عبر واتساب">
+ <i class="fab fa-whatsapp whatsapp-icon"></i>
 </a>
-  <!-- 🛒 Checkout Modal (نافذة إتمام الطلب) -->
+<!-- 🛒 Checkout Modal (نافذة إتمام الطلب) -->
 <div id="checkout-modal" class="modal" style="display: none;">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeCheckout()">&times;</span>
-    <h2>إتمام الطلب 🛍️</h2>
-    <form id="checkout-form" onsubmit="return sendOrderToWhatsApp(event)"></form>
-      <div class="form-group">
-        <label for="cust-name">الاسم بالكامل:</label>
-        <input type="text" id="cust-name" required placeholder="أدخلي اسمك">
-      </div>
-      <div class="form-group">
-        <label for="cust-phone">رقم الهاتف (للتواصل):</label>
-        <input type="tel" id="cust-phone" required placeholder="01xxxxxxxxx">
-      </div>
-      <div class="form-group">
-        <label for="cust-address">العنوان والتفاصيل:</label>
-        <textarea id="cust-address" required placeholder="المحافظة - المدينة - اسم الشارع"></textarea>
-      </div>
-      <button type="submit" class="submit-order-btn">إرسال الطلب عبر الواتساب 📲</button>
-    </form>
+    <div id="loginModal" class="modal" style="display: none !important;">
+    <div class="modal-content">
+        <span class="close-btn" onclick="document.getElementById('loginModal').style.display='none'">&times;</span>
+      <span class="close-btn" onclick="closeCheckout()">&times;</span>
+      <h2>إتمام الطلب 🛍️</h2>
+      <form id="checkout-form" onsubmit="return sendOrderToWhatsApp(event)"></form>
+        <div class="form-group">
+          <label for="cust-name">الاسم بالكامل:</label>
+          <input type="text" id="cust-name" required placeholder="أدخلي اسمك">
+        </div>
+        <div class="form-group">
+          <label for="cust-phone">رقم الهاتف (للتواصل):</label>
+          <input type="tel" id="cust-phone" required placeholder="01xxxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label for="cust-address">العنوان والتفاصيل:</label>
+          <textarea id="cust-address" required placeholder="المحافظة - المدينة - اسم الشارع"></textarea>
+        </div>
+        <button type="submit" class="submit-order-btn">إرسال الطلب عبر الواتساب 📲</button>
+      </form>
+    </div>
   </div>
-</div>
   <!-- ⬆️ Scroll to Top Button -->
 <button id="scrollTopBtn" onclick="scrollToTop()" title="الرجوع للأعلى">
-  <i class="fas fa-arrow-up"></i>
-</button>
+    <i class="fas fa-arrow-up"></i>
+  </button>
 </body>
 </html>
