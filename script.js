@@ -373,8 +373,69 @@ function closeCheckout() {
 }
 
 function sendOrderToWhatsApp(event) {
-  event.preventDefault();
+  // 1️⃣ منع المتصفح إنه يعمل إعادة تحميل للصفحة (Refresh)
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
 
+  // ⚠️ اكتبي رقمك هنا (مثلاً: 01012345678)
+  let phoneBrand = "01103801065"; 
+
+  // تنظيف الرقم وتظبيط كود مصر تلقائياً
+  phoneBrand = phoneBrand.replace(/\D/g, '');
+  if (phoneBrand.startsWith("0")) {
+    phoneBrand = "20" + phoneBrand.substring(1);
+  } else if (!phoneBrand.startsWith("20")) {
+    phoneBrand = "20" + phoneBrand;
+  }
+
+  const nameInput = document.getElementById('cust-name');
+  const phoneInput = document.getElementById('cust-phone');
+  const addressInput = document.getElementById('cust-address');
+
+  const name = nameInput ? nameInput.value : '';
+  const phone = phoneInput ? phoneInput.value : '';
+  const address = addressInput ? addressInput.value : '';
+
+  let cartItemsText = "";
+  let totalPrice = 0;
+
+  if (typeof cart !== 'undefined' && cart.length > 0) {
+    cart.forEach((item, index) => {
+      cartItemsText += `\n${index + 1}. ${item.name || 'منتج'} - ${item.price} ج.م`;
+      totalPrice += Number(item.price) || 0;
+    });
+  } else {
+    alert("السلة فارغة!");
+    return false;
+  }
+
+  const message = `🌸 طلب جديد من H-STORE 🌸\n` +
+                  `----------------------------\n` +
+                  `👤 بيانات العميل:\n` +
+                  `• الاسم: ${name}\n` +
+                  `• الهاتف: ${phone}\n` +
+                  `• العنوان: ${address}\n\n` +
+                  `🛍️ المنتجات المطلوبة:` +
+                  `${cartItemsText}\n\n` +
+                  `💰 الإجمالي: ${totalPrice} ج.م\n` +
+                  `----------------------------`;
+
+  // إغلاق النافذة المنبثقة
+  if (typeof closeCheckout === 'function') {
+    closeCheckout();
+  }
+
+  // 2️⃣ فتح الواتساب باستخدام window.open بأسلوب أضمن للموبايل
+  const whatsappURL = `https://wa.me/${phoneBrand}?text=${encodeURIComponent(message)}`;
+  
+  setTimeout(() => {
+    window.location.href = whatsappURL;
+  }, 100);
+
+  return false;
+}
   // ⚠️ حطي رقمك هنا بالظبط مكان الرقم ده (201012345678)
   const phoneBrand = "201103801065"; 
 
