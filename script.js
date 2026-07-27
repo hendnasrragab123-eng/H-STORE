@@ -376,7 +376,7 @@ function sendOrderToWhatsApp(event) {
   event.preventDefault();
 
   // ⚠️ حطي رقمك هنا بالظبط مكان الرقم ده (201012345678)
-  const phoneBrand = "201012345678"; 
+  const phoneBrand = "201103801065"; 
 
   const name = document.getElementById('cust-name').value;
   const phone = document.getElementById('cust-phone').value;
