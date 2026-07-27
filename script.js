@@ -376,7 +376,7 @@ function closeCheckout() {
 function sendOrderToWhatsApp(event) {
   event.preventDefault();
 
-  const phoneBrand = "201xxxxxxxx"; // ⚠️ غيري الرقم هنا برقم الواتساب الخاص بكِ
+  const phoneBrand = "201103801065"; // ⚠️ غيري الرقم هنا برقم الواتساب الخاص بكِ
   const name = document.getElementById('cust-name').value;
   const phone = document.getElementById('cust-phone').value;
   const address = document.getElementById('cust-address').value;
