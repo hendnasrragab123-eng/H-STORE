@@ -989,3 +989,28 @@ img {
 .submit-order-btn:hover {
   background-color: #128c7e;
 }
+/* ==========================================
+   ⬆️ Scroll To Top Button Style
+   ========================================== */
+#scrollTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #ff6b81; /* لون يتناسب مع هويتك */
+  color: white;
+  cursor: pointer;
+  padding: 12px 15px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+  background-color: #ff4757;
+  transform: translateY(-3px);
+}
