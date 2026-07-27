@@ -240,7 +240,7 @@
   <div class="modal-content">
     <span class="close-btn" onclick="closeCheckout()">&times;</span>
     <h2>إتمام الطلب 🛍️</h2>
-    <form id="checkout-form" onsubmit="sendOrderToWhatsApp(event)">
+    <form id="checkout-form" onsubmit="return sendOrderToWhatsApp(event)"></form>
       <div class="form-group">
         <label for="cust-name">الاسم بالكامل:</label>
         <input type="text" id="cust-name" required placeholder="أدخلي اسمك">
