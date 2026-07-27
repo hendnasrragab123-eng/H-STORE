@@ -258,7 +258,7 @@ function checkoutWhatsApp() {
     total += item.price * item.quantity;
   });
   text += `\nإجمالي الحساب: ${total} ج.م`;
-  const phone = "201000000000";
+  const phone = "201103801056";
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
 }
 
