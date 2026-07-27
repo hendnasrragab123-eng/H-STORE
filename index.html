@@ -197,5 +197,27 @@
    aria-label="تواصل معنا عبر واتساب">
     <i class="fab fa-whatsapp whatsapp-icon"></i>
 </a>
+  <!-- 🛒 Checkout Modal (نافذة إتمام الطلب) -->
+<div id="checkout-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeCheckout()">&times;</span>
+    <h2>إتمام الطلب 🛍️</h2>
+    <form id="checkout-form" onsubmit="sendOrderToWhatsApp(event)">
+      <div class="form-group">
+        <label for="cust-name">الاسم بالكامل:</label>
+        <input type="text" id="cust-name" required placeholder="أدخلي اسمك">
+      </div>
+      <div class="form-group">
+        <label for="cust-phone">رقم الهاتف (للتواصل):</label>
+        <input type="tel" id="cust-phone" required placeholder="01xxxxxxxxx">
+      </div>
+      <div class="form-group">
+        <label for="cust-address">العنوان والتفاصيل:</label>
+        <textarea id="cust-address" required placeholder="المحافظة - المدينة - اسم الشارع"></textarea>
+      </div>
+      <button type="submit" class="submit-order-btn">إرسال الطلب عبر الواتساب 📲</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
