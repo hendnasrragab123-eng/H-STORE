@@ -258,7 +258,7 @@ function checkoutWhatsApp() {
     total += item.price * item.quantity;
   });
   text += `\nإجمالي الحساب: ${total} ج.م`;
-  const phone = "201103801056";
+  const phone = "201103801065";
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
 }
 
@@ -365,161 +365,180 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // 📱 فتح وإغلاق نافذة إتمام الطلب
 function openCheckout() {
-  document.getElementById('checkout-modal').style.display = 'flex';
-}
-
-function closeCheckout() {
-  document.getElementById('checkout-modal').style.display = 'none';
-}
-
-function sendOrderToWhatsApp(event) {
-  // 1️⃣ منع المتصفح إنه يعمل إعادة تحميل للصفحة (Refresh)
-  if (event) {
-    event.preventDefault();
-    event.stopPropagation();
+    document.getElementById('checkout-modal').style.display = 'flex';
   }
-
-  // ⚠️ اكتبي رقمك هنا (مثلاً: 01012345678)
-  let phoneBrand = "01103801065"; 
-
-  // تنظيف الرقم وتظبيط كود مصر تلقائياً
-  phoneBrand = phoneBrand.replace(/\D/g, '');
-  if (phoneBrand.startsWith("0")) {
-    phoneBrand = "20" + phoneBrand.substring(1);
-  } else if (!phoneBrand.startsWith("20")) {
-    phoneBrand = "20" + phoneBrand;
+  
+  function closeCheckout() {
+    document.getElementById('checkout-modal').style.display = 'none';
   }
-
-  const nameInput = document.getElementById('cust-name');
-  const phoneInput = document.getElementById('cust-phone');
-  const addressInput = document.getElementById('cust-address');
-
-  const name = nameInput ? nameInput.value : '';
-  const phone = phoneInput ? phoneInput.value : '';
-  const address = addressInput ? addressInput.value : '';
-
-  let cartItemsText = "";
-  let totalPrice = 0;
-
-  if (typeof cart !== 'undefined' && cart.length > 0) {
-    cart.forEach((item, index) => {
-      cartItemsText += `\n${index + 1}. ${item.name || 'منتج'} - ${item.price} ج.م`;
-      totalPrice += Number(item.price) || 0;
-    });
-  } else {
-    alert("السلة فارغة!");
+  
+  function sendOrderToWhatsApp(event) {
+    // 1️⃣ منع المتصفح إنه يعمل إعادة تحميل للصفحة (Refresh)
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  
+    // ⚠️ اكتبي رقمك هنا (مثلاً: 01012345678)
+    let phoneBrand = "01012345678"; 
+  
+    // تنظيف الرقم وتظبيط كود مصر تلقائياً
+    phoneBrand = phoneBrand.replace(/\D/g, '');
+    if (phoneBrand.startsWith("0")) {
+      phoneBrand = "20" + phoneBrand.substring(1);
+    } else if (!phoneBrand.startsWith("20")) {
+      phoneBrand = "20" + phoneBrand;
+    }
+  
+    const nameInput = document.getElementById('cust-name');
+    const phoneInput = document.getElementById('cust-phone');
+    const addressInput = document.getElementById('cust-address');
+  
+    const name = nameInput ? nameInput.value : '';
+    const phone = phoneInput ? phoneInput.value : '';
+    const address = addressInput ? addressInput.value : '';
+  
+    let cartItemsText = "";
+    let totalPrice = 0;
+  
+    if (typeof cart !== 'undefined' && cart.length > 0) {
+      cart.forEach((item, index) => {
+        cartItemsText += `\n${index + 1}. ${item.name || 'منتج'} - ${item.price} ج.م`;
+        totalPrice += Number(item.price) || 0;
+      });
+    } else {
+      alert("السلة فارغة!");
+      return false;
+    }
+  
+    const message = `🌸 طلب جديد من H-STORE 🌸\n` +
+                    `----------------------------\n` +
+                    `👤 بيانات العميل:\n` +
+                    `• الاسم: ${name}\n` +
+                    `• الهاتف: ${phone}\n` +
+                    `• العنوان: ${address}\n\n` +
+                    `🛍️ المنتجات المطلوبة:` +
+                    `${cartItemsText}\n\n` +
+                    `💰 الإجمالي: ${totalPrice} ج.م\n` +
+                    `----------------------------`;
+  
+    // إغلاق النافذة المنبثقة
+    if (typeof closeCheckout === 'function') {
+      closeCheckout();
+    }
+  
+    // 2️⃣ فتح الواتساب باستخدام window.open بأسلوب أضمن للموبايل
+    const whatsappURL = `https://wa.me/${phoneBrand}?text=${encodeURIComponent(message)}`;
+    
+    setTimeout(() => {
+      window.location.href = whatsappURL;
+    }, 100);
+  
     return false;
   }
+  
+    // ⚠️ حطي رقمك هنا بالظبط مكان الرقم ده (201012345678)
+    const phoneBrand = "201103801065"; 
+  
+    const name = document.getElementById('cust-name').value;
+    const phone = document.getElementById('cust-phone').value;
+    const address = document.getElementById('cust-address').value;
+  
+    let cartItemsText = "";
+    let totalPrice = 0;
+  
+    if (typeof cart !== 'undefined' && cart.length > 0) {
+      cart.forEach((item, index) => {
+        cartItemsText += `\n${index + 1}. ${item.name || 'منتج'} - ${item.price} ج.م`;
+        totalPrice += Number(item.price) || 0;
+      });
+    } else {
+      alert("السلة فارغة!");
+      
+    }
+  {
+    const message = `🌸 *طلب جديد من H-STORE* 🌸\n` +
+                    `----------------------------\n` +
+                    `👤 *بيانات العميل:*\n` +
+                    `• الاسم: ${name}\n` +
+                    `• الهاتف: ${phone}\n` +
+                    `• العنوان: ${address}\n\n` +
+                    `🛍️ *المنتجات المطلوبة:*` +
+                    `${cartItemsText}\n\n` +
+                    `💰 *الإجمالي:* ${totalPrice} ج.م\n` +
+                    `----------------------------`;
+  
+    // رابط مضمون للواتساب على الموبايل واللاب بدون مشاكل
+    const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneBrand}&text=${encodeURIComponent(message)}`;
+  
+    window.location.href = whatsappURL;
+    function sendOrderToWhatsApp(event) {
+        if (event) {
+          event.preventDefault();
+        }
+      
+        // ⚠️ غيري الرقم هنا برقم الواتساب بتاعك
+        let phoneBrand = "01012345678"; 
+      
+        // تنظيف الرقم وتظبيط كود مصر (20) تلقائياً
+        phoneBrand = phoneBrand.replace(/\D/g, '');
+        if (phoneBrand.startsWith("0")) {
+          phoneBrand = "20" + phoneBrand.substring(1);
+        } else if (!phoneBrand.startsWith("20")) {
+          phoneBrand = "20" + phoneBrand;
+        }
+      
+        const nameInput = document.getElementById('cust-name');
+        const phoneInput = document.getElementById('cust-phone');
+        const addressInput = document.getElementById('cust-address');
+      
+        const name = nameInput ? nameInput.value : '';
+        const phone = phoneInput ? phoneInput.value : '';
+        const address = addressInput ? addressInput.value : '';
+      
+        let cartItemsText = "";
+        let totalPrice = 0;
+      
+        if (typeof cart !== 'undefined' && cart.length > 0) {
+          cart.forEach((item, index) => {
+            cartItemsText += `\n${index + 1}. ${item.name || 'منتج'} - ${item.price} ج.م`;
+            totalPrice += Number(item.price) || 0;
+          });
+        } else {
+          alert("السلة فارغة!");
+          return;
+        }
+      
+        const message = `🌸 *طلب جديد من H-STORE* 🌸\n` +
+                        `----------------------------\n` +
+                        `👤 *بيانات العميل:*\n` +
+                        `• الاسم: ${name}\n` +
+                        `• الهاتف: ${phone}\n` +
+                        `• العنوان: ${address}\n\n` +
+                        `🛍️ *المنتجات المطلوبة:*` +
+                        `${cartItemsText}\n\n` +
+                        `💰 *الإجمالي:* ${totalPrice} ج.م\n` +
+                        `----------------------------`;
+      
+      
+    }
+    // صياغة الرسالة الشيك
+  const orderMsg = `🌸 *طلب جديد من H-STORE* 🌸\n` +
+  `----------------------------\n` +
+  `👤 *بيانات العميل:*\n` +
+  `• الاسم: ${name}\n` +
+  `• الهاتف: ${phone}\n` +
+  `• العنوان: ${address}\n\n` +
+  `🛍️ *المنتجات المطلوبة:*` +
+  `${cartItemsText}\n\n` +
+  `💰 *الإجمالي:* ${totalPrice} ج.م\n` +
+  `----------------------------`;
 
-  const message = `🌸 طلب جديد من H-STORE 🌸\n` +
-                  `----------------------------\n` +
-                  `👤 بيانات العميل:\n` +
-                  `• الاسم: ${name}\n` +
-                  `• الهاتف: ${phone}\n` +
-                  `• العنوان: ${address}\n\n` +
-                  `🛍️ المنتجات المطلوبة:` +
-                  `${cartItemsText}\n\n` +
-                  `💰 الإجمالي: ${totalPrice} ج.م\n` +
-                  `----------------------------`;
 
-  // إغلاق النافذة المنبثقة
-  if (typeof closeCheckout === 'function') {
     closeCheckout();
   }
 
-  // 2️⃣ فتح الواتساب باستخدام window.open بأسلوب أضمن للموبايل
-  const whatsappURL = `https://wa.me/${phoneBrand}?text=${encodeURIComponent(message)}`;
-  
-  setTimeout(() => {
-    window.location.href = whatsappURL;
-  }, 100);
 
-  return false;
-}
-  // ⚠️ حطي رقمك هنا بالظبط مكان الرقم ده (201012345678)
-  const phoneBrand = "201103801065"; 
-
-  const name = document.getElementById('cust-name').value;
-  const phone = document.getElementById('cust-phone').value;
-  const address = document.getElementById('cust-address').value;
-
-  let cartItemsText = "";
-  let totalPrice = 0;
-
-  if (typeof cart !== 'undefined' && cart.length > 0) {
-    cart.forEach((item, index) => {
-      cartItemsText += `\n${index + 1}. ${item.name || 'منتج'} - ${item.price} ج.م`;
-      totalPrice += Number(item.price) || 0;
-    });
-  } else {
-    alert("السلة فارغة!");
-    return;
-  }
-
-  const message = `🌸 *طلب جديد من H-STORE* 🌸\n` +
-                  `----------------------------\n` +
-                  `👤 *بيانات العميل:*\n` +
-                  `• الاسم: ${name}\n` +
-                  `• الهاتف: ${phone}\n` +
-                  `• العنوان: ${address}\n\n` +
-                  `🛍️ *المنتجات المطلوبة:*` +
-                  `${cartItemsText}\n\n` +
-                  `💰 *الإجمالي:* ${totalPrice} ج.م\n` +
-                  `----------------------------`;
-
-  // رابط مضمون للواتساب على الموبايل واللاب بدون مشاكل
-  const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneBrand}&text=${encodeURIComponent(message)}`;
-
-  window.location.href = whatsappURL;
-}
-  // جلب عناصر السلة (تأكدي من مطابقة اسم المتغير عندك cart)
-  let cartItemsText = "";
-  let totalPrice = 0;
-
-  if (typeof cart !== 'undefined' && cart.length > 0) {
-    cart.forEach((item, index) => {
-      cartItemsText += `\n${index + 1}. ${item.name || 'منتج'} - ${item.price} ج.م`;
-      totalPrice += Number(item.price) || 0;
-    });
-  } else {
-    alert("السلة فارغة!");
-    return;
-  }
-
-  // صياغة الرسالة الشيك
-  const message = `🌸 *طلب جديد من H-STORE* 🌸\n` +
-                  `----------------------------\n` +
-                  `👤 *بيانات العميل:*\n` +
-                  `• الاسم: ${name}\n` +
-                  `• الهاتف: ${phone}\n` +
-                  `• العنوان: ${address}\n\n` +
-                  `🛍️ *المنتجات المطلوبة:*` +
-                  `${cartItemsText}\n\n` +
-                  `💰 *الإجمالي:* ${totalPrice} ج.م\n` +
-                  `----------------------------`;
-
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappURL = `https://wa.me/${phoneBrand}?text=${encodedMessage}`;
-
-  window.open(whatsappURL, '_blank');
-  closeCheckout();
-}
-// ⬆️ إظهار وإخفاء زر الرجوع للأعلى
-window.onscroll = function() {
-  let btn = document.getElementById("scrollTopBtn");
-  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-    btn.style.display = "block";
-  } else {
-    btn.style.display = "none";
-  }
-};
-
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-}
 // ⬆️ إظهار وإخفاء زر الرجوع للأعلى
 window.onscroll = function() {
     let btn = document.getElementById("scrollTopBtn");
