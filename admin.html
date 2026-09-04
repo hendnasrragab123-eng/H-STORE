@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم H-STORE</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f8f9fa; margin: 0; padding: 20px; color: #333; }
+    .main-wrapper { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .container { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+    h2, h3 { text-align: center; color: #d63384; margin-bottom: 20px; font-weight: 700; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
+    input[type="text"], input[type="number"], select, input[type="file"] { width: 100%; padding: 10px 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 14px; background-color: #fff; }
+    button.submit-btn { width: 100%; padding: 12px; background-color: #d63384; border: none; color: white; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+    button.submit-btn:hover { background-color: #b8236b; }
+    button:disabled { background-color: #adb5bd; cursor: not-allowed; }
+    #status { text-align: center; margin-top: 15px; font-weight: 600; font-size: 14px; }
+
+    /* جدول عرض المنتجات للحذف */
+    .products-list { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .products-list th, .products-list td { padding: 10px; text-align: center; border-bottom: 1px solid #e9ecef; }
+    .products-list th { background-color: #f1f3f5; font-size: 14px; }
+    .products-list img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
+    .delete-btn { background-color: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; }
+    .delete-btn:hover { background-color: #bb2d3b; }
+  </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+  
+  <!-- نموذج إضافة منتج -->
+  <div class="container">
+    <h2>✨ لوحة إدارة H-STORE ✨</h2>
+    <form id="addProductForm">
+      
+      <div class="form-group">
+        <label>اسم المنتج:</label>
+        <input type="text" id="pName" placeholder="مثال: انسيال ستانلس ورده" required>
+      </div>
+
+      <div class="form-group">
+        <label>السعر (بالجنيه):</label>
+        <input type="number" id="pPrice" placeholder="مثال: 150" required>
+      </div>
+
+      <div class="form-group">
+        <label>قسم المنتج:</label>
+        <select id="pCategory" required>
+          <option value="" disabled selected>اختر القسم...</option>
+          <option value="rings">خواتم</option>
+          <option value="bracelets">انسيالات وأساور</option>
+          <option value="necklaces">سلاسل</option>
+          <option value="earrings">حلقات</option>
+          <option value="anklets">خلخال</option>
+          <option value="hand_chains">هاند تشين</option>
+          <option value="watches">ساعات</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>صورة المنتج:</label>
+        <input type="file" id="pImageFile" accept="image/*" required>
+      </div>
+
+      <button type="submit" id="submitBtn" class="submit-btn">نشر المنتج فوراً 🚀</button>
+    </form>
+    
+    <div id="status"></div>
+  </div>
+
+  <!-- قائمة إدارة المنتجات المرفوعة -->
+  <div class="container">
+    <h3>📦 المنتجات المتاحة حالياً</h3>
+    <table class="products-list">
+      <thead>
+        <tr>
+          <th>الصورة</th>
+          <th>الاسم</th>
+          <th>السعر</th>
+          <th>القسم</th>
+          <th>إجراء</th>
+        </tr>
+      </thead>
+      <tbody id="adminProductsTable">
+        <tr><td colspan="5">جاري تحميل المنتجات...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCMLN-lhw1HGzHPSzniKJTatl-b7kjK5ss",
+    authDomain: "h-store-960d8.firebaseapp.com",
+    projectId: "h-store-960d8",
+    storageBucket: "h-store-960d8.firebasestorage.app",
+    messagingSenderId: "628421256165",
+    appId: "1:628421256165:web:3aab53a2749b6df3e5450c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const CLOUD_NAME = "tczlvrzt";
+  const UPLOAD_PRESET = "hstore_preset";
+
+  const form = document.getElementById('addProductForm');
+  const status = document.getElementById('status');
+  const submitBtn = document.getElementById('submitBtn');
+  const adminProductsTable = document.getElementById('adminProductsTable');
+
+  // جلب وعرض المنتجات في اللوحة
+  async function loadAdminProducts() {
+    try {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      adminProductsTable.innerHTML = "";
+
+      if (querySnapshot.empty) {
+        adminProductsTable.innerHTML = `<tr><td colspan="5">لا توجد منتجات حالياً.</td></tr>`;
+        return;
+      }
+
+      querySnapshot.forEach((document) => {
+        const product = document.data();
+        const row = `
+          <tr>
+            <td><img src="${product.imageUrl}" alt="${product.name}"></td>
+            <td>${product.name}</td>
+            <td>${product.price} ج.م</td>
+            <td>${product.category || 'غير محدد'}</td>
+            <td>
+              <button class="delete-btn" onclick="deleteProduct('${document.id}')">حذف 🗑️</button>
+            </td>
+          </tr>
+        `;
+        adminProductsTable.innerHTML += row;
+      });
+    } catch (err) {
+      console.error(err);
+      adminProductsTable.innerHTML = `<tr><td colspan="5">حدث خطأ أثناء تحميل المنتجات.</td></tr>`;
+    }
+  }
+
+  // حذف منتج
+  window.deleteProduct = async function(id) {
+    if (confirm("هل أنتِ متأكدة من حذف هذا المنتج من المتجر؟")) {
+      try {
+        await deleteDoc(doc(db, "products", id));
+        alert("تم حذف المنتج بنجاح! 🗑️");
+        loadAdminProducts(); // إعادة تحميل القائمة
+      } catch (err) {
+        alert("فشل الحذف: " + err.message);
+      }
+    }
+  };
+
+  // إضافة منتج جديد
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    status.style.color = "#0d6efd";
+    status.innerText = "⏳ جاري رفع الصورة ونشر البيانات...";
+
+    const name = document.getElementById('pName').value;
+    const price = document.getElementById('pPrice').value;
+    const category = document.getElementById('pCategory').value;
+    const fileInput = document.getElementById('pImageFile');
+    const file = fileInput.files[0];
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', UPLOAD_PRESET);
+
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      
+      if (!data.secure_url) {
+        throw new Error("فشل رفع الصورة");
+      }
+
+      await addDoc(collection(db, "products"), {
+        name: name,
+        price: Number(price),
+        category: category,
+        imageUrl: data.secure_url,
+        createdAt: new Date()
+      });
+
+      status.style.color = "#198754";
+      status.innerText = "تم حفظ المنتج بنجاح! 🎉";
+      form.reset();
+      loadAdminProducts(); // تحديث الجدول تلقائياً
+    } catch (error) {
+      console.error(error);
+      status.style.color = "#dc3545";
+      status.innerText = "حدث خطأ: " + error.message;
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  // تحميل المنتجات فور فتح الصفحة
+  loadAdminProducts();
+</script>
+
+</body>
+</html>

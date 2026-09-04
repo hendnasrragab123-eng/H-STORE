@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 🌸 Favicon (أيقونة المتصفح) -->
+<link rel="icon" type="image/png" href="logo.png">
+
+<!-- 🔍 SEO & Meta Tags (تحسين الظهور وشكل اللينك عند المشاركة) -->
+<meta name="description" content="H-STORE - متجر إكسسوارات استانلس فاخرة (خواتم، سلاسل، أساور، وساعات) مع تغليف هدايا أنيق وشحن لجميع المحافظات.">
+<meta name="keywords" content="H-STORE, إكسسوارات, استانلس, خواتم, سلاسل, أساور, ساعات, هدايا, اكسسوارات حريمي">
+<meta name="author" content="H-STORE">
+
+<!-- 📱 Open Graph / Facebook & WhatsApp Link Preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="H-STORE | Luxury Stainless Steel Accessories 💖">
+<meta property="og:description" content="تسوقي أحدث تشكيلات الإكسسوارات الاستانلس الفاخرة بجودة عالية وتصاميم مميزة.">
+<meta property="og:image" content="logo.png">
+  <title>H-STORE | Luxury Accessories</title>
+  <!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <!-- أيقونات FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- خط كلاسيكي فخم (Playfair Display) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Top Announcement Bar -->
+<div class="announcement-bar">
+    <span>✨ شحن مجاني للطلبات الاكثر من 500 ج.م | تغليف هدايا فاخر مجاناً 🌸</span>
+  </div>
+  <!-- Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-gem"></i> H-STORE
+      </div>
+      <nav class="nav-links">
+        <a href="#" class="active" onclick="filterProducts('all')">الكل</a>
+        <a href="#" onclick="filterProducts('chains')">السلاسل</a>
+        <a href="#" onclick="filterProducts('rings')">الخواتم</a>
+        <a href="#" onclick="filterProducts('bracelets')">الأساور</a>
+        <a href="#" onclick="filterProducts('compo')">الكومبوهات</a>
+      </nav> 
+        
+      </nav>
+      <i class="fa-regular fa-heart nav-fav-icon" onclick="showFavorites()" title="المفضلة"></i>
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="ابحثي عن إكسسوارك... 🔍" oninput="searchProducts()">
+            <i class="fa-regular fa-user" onclick="openAuthModal()" style="cursor: pointer;"></i>
+                    <div class="cart-icon" onclick="toggleCart()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-characters">
+        <img src="images/blossom.png" class="ppg-hero blossom" alt="Blossom">
+        <img src="images/bubbles.png" class="ppg-hero bubbles" alt="Bubbles">
+        <img src="images/buttercup.png" class="ppg-hero buttercup" alt="Buttercup">
+      </div>
+    <div class="hero-content">
+      <h1> أشيك إكسسوارات مع H-STORE ! ✨</h1>
+      <p>تشكيلة ستانلس ستيل فخمة ومقاومة للماء بتصاميم  تحفة</p>
+      <button class="btn-primary">تسوقي الآن 💖</button>
+    </div>
+  </section>
+  <!-- Products Section -->
+  <main class="container" id="products-section">
+    <div class="section-title">
+        <img src="images/blossom.png" class="title-ppg-icon" alt="Blossom">
+        <h2>أحدث التشكيلات ✨</h2>
+      </div>
+      <!-- أزرار الأقسام -->
+<div class="category-buttons" style="text-align: center; margin: 15px 0; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+  <button onclick="filterProducts('all')">الكل</button>
+  <button onclick="filterProducts('rings')">خواتم</button>
+  <button onclick="filterProducts('bracelets')">انسيالات وأساور</button>
+  <button onclick="filterProducts('necklaces')">سلاسل</button>
+  <button onclick="filterProducts('earrings')">حلقان</button>
+  <button onclick="filterProducts('anklets')">خلخال</button>
+  <button onclick="filterProducts('hand_chains')">هاند تشين</button>
+  <button onclick="filterProducts('watches')">ساعات</button>
+</div>
+      <!-- القائمة المنسدلة لترتيب الأسعار (مكانها الجديد هنا) -->
+  <div class="filter-sort-bar">
+    <select id="sort-select" onchange="sortProducts(this.value)">
+      <option value="default">الترتيب الافتراضي</option>
+      <option value="low-high">السعر: من الأقل للأعلى 📈</option>
+      <option value="high-low">السعر: من الأعلى للأقل 📉</option>
+    </select>
+  </div>
+    <!-- شبكة عرض المنتجات -->
+    <div id="products-grid" class="products-grid"></div>
+
+    <!-- الترقيم والصفحات -->
+    <div id="pagination" class="pagination"></div>
+  </main>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-box">
+      <i class="fa-solid fa-gem"></i>
+      <h3>خامات عالية الجودة</h3>
+      <p>استانلس ستيل مقاوم للصدأ تماماً.</p>
+    </div>
+    <div class="feature-box">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h3>ضمان ثبات اللون</h3>
+      <p>قطع مصنوعة لتدوم معكِ طوال العمر بدون تغير لون.</p>
+    </div>
+    <div class="feature-box">
+      <i class="fa-solid fa-gift"></i>
+      <h3>تغليف فاخر</h3>
+      <p>يصلك في علبة هدايا مميزة وأنيقة جداً.</p>
+    </div>
+    <div class="feature-box">
+      <i class="fa-solid fa-truck-fast"></i>
+      <h3>شحن سريع</h3>
+      <p>توصيل آمن وسريع .</p>
+    </div>
+  </section>
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <h2>آراء فتيات H-STORE 💖</h2>
+    <div class="reviews-container">
+      <div class="review-card">
+        <p>"الخامة ستانلس ستيل تحفة وثابتة جداً مش بتغير لون خالص، بجد تسلم إيدكم! 🌸"</p>
+        <span>- مريم أحمد</span>
+      </div>
+      <div class="review-card">
+        <p>"الكومبو يجنن والتغليف كيوت أوي ينفع هدية راقية جداً.. شكراً H-STORE ✨"</p>
+        <span>- سارة محمود</span>
+      </div>
+    </div>
+  </section>
+  <!-- ⭐ قسم آراء العملاء -->
+<section class="reviews-section">
+    <h2 class="section-title">آراء أميرات H-STORE 💖</h2>
+    <div class="reviews-container">
+      
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"الحاجة وصلت بسرعة والأساور خاماتها تحفة بجد وما بتغيرش لون خالص، تسلم إيديكوا!"</p>
+        <h4>- مريم أ.</h4>
+      </div>
+  
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"التغليف فخم جداً ينفع هدايا وشكل السلسلة على الحقيقة أحلى بكثير من الصور ✨"</p>
+        <h4>- نورهان ك.</h4>
+      </div>
+  
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"تعامل راقي جداً وذوق، والخواتم مقاساتها مضبوطة بالظبط. مش أخر تعامل أكيد 💕"</p>
+        <h4>- سارة م.</h4>
+      </div>
+  
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>H-STORE</h3>
+        <p>الأناقة ليست مجرد مظهر، بل هي انطباع تدوم رائحته وحضوره.</p>
+      </div>
+      <div class="footer-links">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="#">جميع المنتجات</a></li>
+          <li><a href="#">الأكثر مبيعاً</a></li>
+          <li><a href="#">العروض</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>تواصل معنا</h4>
+        <p><i class="fab fa-whatsapp"></i> خدمة العملاء عبر الواتساب</p>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2026 H-STORE. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h2>سلة الشراء </h2>
+      <button class="close-btn" onclick="toggleCart()">&times;</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="total-price">
+        <span>الإجمالي:</span>
+        <span id="cart-total">0 ج.م</span>
+      </div>
+      <button class="whatsapp-btn" onclick="checkoutWhatsApp()">
+        <i class="fab fa-whatsapp"></i> إتمام الطلب عبر الواتساب
+      </button>
+    </div>
+  </div>
+  <div id="overlay" class="overlay" onclick="toggleCart()"></div>
+
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+  
+  </div>
+  <!-- 💬 Floating WhatsApp Button -->
+<a href="https://wa.me/201103801065?text=%D9%87%D9%84%D8%A7%D9%80%20H-STORE%D8%8C%20%D8%AD%D8%A7%D8%A8%D8%A9%20%D8%A3%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA%D9%83%D9%85" 
+class="whatsapp-float" 
+target="_blank" 
+rel="noopener noreferrer" 
+aria-label="تواصل معنا عبر واتساب">
+ <i class="fab fa-whatsapp whatsapp-icon"></i>
+</a>
+<!-- 🛒 Checkout Modal (نافذة إتمام الطلب) -->
+<div id="checkout-modal" class="modal" style="display: none;">
+    <div id="loginModal" class="modal" style="display: none !important;">
+    <div class="modal-content">
+        <span class="close-btn" onclick="document.getElementById('loginModal').style.display='none'">&times;</span>
+      <span class="close-btn" onclick="closeCheckout()">&times;</span>
+      <h2>إتمام الطلب 🛍️</h2>
+      <form id="checkout-form" onsubmit="return sendOrderToWhatsApp(event)"></form>
+        <div class="form-group">
+          <label for="cust-name">الاسم بالكامل:</label>
+          <input type="text" id="cust-name" required placeholder="أدخلي اسمك">
+        </div>
+        <div class="form-group">
+          <label for="cust-phone">رقم الهاتف (للتواصل):</label>
+          <input type="tel" id="cust-phone" required placeholder="01xxxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label for="cust-address">العنوان والتفاصيل:</label>
+          <textarea id="cust-address" required placeholder="المحافظة - المدينة - اسم الشارع"></textarea>
+        </div>
+        <button type="submit" class="submit-order-btn">إرسال الطلب عبر الواتساب 📲</button>
+      </form>
+    </div>
+  </div>
+  <!-- ⬆️ Scroll to Top Button -->
+<button id="scrollTopBtn" onclick="scrollToTop()" title="الرجوع للأعلى">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  <!-- Firebase & Category Filter Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCMLN-lhw1HGzHPSzniKJTatl-b7kjK5ss",
+    authDomain: "h-store-960d8.firebaseapp.com",
+    projectId: "h-store-960d8",
+    storageBucket: "h-store-960d8.firebasestorage.app",
+    messagingSenderId: "628421256165",
+    appId: "1:628421256165:web:3aab53a2749b6df3e5450c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // دالة جلب المنتجات وفقاً للقسم
+  window.filterProducts = async function(categoryFilter = "all") {
+    const productsContainer = document.getElementById('productsContainer'); // تأكدي إن اسم ה-ID للكونتينر مظبوط
+    if (!productsContainer) return;
+    
+    productsContainer.innerHTML = "<p style='text-align:center;'>جاري تحميل المنتجات...</p>";
+
+    try {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      productsContainer.innerHTML = "";
+
+      querySnapshot.forEach((doc) => {
+        const product = doc.data();
+        
+        if (categoryFilter === "all" || product.category === categoryFilter) {
+          const productCard = `
+            <div class="product-card">
+              <img src="${product.imageUrl}" alt="${product.name}">
+              <h3>${product.name}</h3>
+              <p class="price">${product.price} جنيه</p>
+            </div>
+          `;
+          productsContainer.innerHTML += productCard;
+        }
+      });
+    } catch (error) {
+      console.error("خطأ في جلب المنتجات:", error);
+    }
+  };
+
+  // تحميل كل المنتجات تلقائياً أول ما الصفحة تفتح
+  window.onload = () => filterProducts('all');
+</script>
+</body>
+</html>
