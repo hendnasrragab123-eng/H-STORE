@@ -555,30 +555,32 @@ window.onscroll = function() {
       behavior: 'smooth'
     });
   }
-  // كود الفلترة المطور لـ H-STORE
-document.addEventListener('DOMContentLoaded', () => {
-  const filterBtns = document.querySelectorAll('.category-btn, .filter-btn, [data-category]');
-  const products = document.querySelectorAll('.product-card, .product-item');
+ // كود الفلترة المضمون المباشر لـ H-STORE
+document.addEventListener('click', (e) => {
+  // التأكد من أن الضغط تم على زرار قسم
+  const btn = e.target.closest('.category-btn, .filter-btn, [data-category]');
+  if (!btn) return;
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      // إزالة التفعيل من باقي الأزرار
-      filterBtns.forEach(b => b.classList.remove('active'));
-      e.currentTarget.classList.add('active');
+  // تغيير شكل الزر النشط
+  document.querySelectorAll('.category-btn, .filter-btn, [data-category]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 
-      // جلب اسم الفئة وتنظيفه من المسافات
-      const targetCategory = (e.currentTarget.getAttribute('data-category') || e.currentTarget.innerText).trim();
+  const selectedCategory = (btn.getAttribute('data-category') || btn.innerText).trim();
 
-      products.forEach(product => {
-        const productCategory = (product.getAttribute('data-category') || '').trim();
-
-        // إظهار الكل أو المطابق فقط
-        if (targetCategory === 'الكل' || targetCategory === '' || productCategory === targetCategory) {
-          product.style.display = 'block';
-        } else {
-          product.style.display = 'none';
-        }
-      });
+  // لو في دالة جاهزة في ملفك للفلترة استدعيها فوراً
+  if (typeof filterProducts === 'function') {
+    filterProducts(selectedCategory);
+  } else {
+    // حل احتياطي لإظهار وإخفاء الكروت المباشرة
+    const allCards = document.querySelectorAll('.product-card, .product-item, .card');
+    allCards.forEach(card => {
+      const cardCat = (card.getAttribute('data-category') || '').trim();
+      if (selectedCategory === 'الكل' || selectedCategory === '' || cardCat === selectedCategory) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
     });
-  });
+  }
 });
+ 
