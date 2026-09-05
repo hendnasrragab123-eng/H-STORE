@@ -555,3 +555,30 @@ window.onscroll = function() {
       behavior: 'smooth'
     });
   }
+  // كود الفلترة المطور لـ H-STORE
+document.addEventListener('DOMContentLoaded', () => {
+  const filterBtns = document.querySelectorAll('.category-btn, .filter-btn, [data-category]');
+  const products = document.querySelectorAll('.product-card, .product-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // إزالة التفعيل من باقي الأزرار
+      filterBtns.forEach(b => b.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+
+      // جلب اسم الفئة وتنظيفه من المسافات
+      const targetCategory = (e.currentTarget.getAttribute('data-category') || e.currentTarget.innerText).trim();
+
+      products.forEach(product => {
+        const productCategory = (product.getAttribute('data-category') || '').trim();
+
+        // إظهار الكل أو المطابق فقط
+        if (targetCategory === 'الكل' || targetCategory === '' || productCategory === targetCategory) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    });
+  });
+});
