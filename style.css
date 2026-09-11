@@ -1104,3 +1104,83 @@ img {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(242, 166, 191, 0.4);
 }
+/* --- 1. الهيدر الزجاجي الثابت (Sticky Glassmorphism Header) --- */
+header, .navbar {
+  position: sticky !important;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(255, 182, 193, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+/* --- 2. البنر الرئيسي الترحيبي (Hero Banner) --- */
+.hero-section {
+  background: linear-gradient(135deg, #fff0f3 0%, #ffe4e1 100%);
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 20px;
+  margin: 15px auto;
+  max-width: 95%;
+  box-shadow: inset 0 0 15px rgba(255, 105, 180, 0.05);
+}
+
+.hero-title {
+  color: #d63384;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hero-subtitle {
+  color: #555;
+  font-size: 1rem;
+}
+
+/* --- 3. تحسين العرض على الموبايل (كارتين في السطر) --- */
+@media (max-width: 768px) {
+  .products-grid, #products-container, .products-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 10px !important;
+  }
+  
+  .product-card, .product-item {
+    padding: 8px !important;
+  }
+}
+
+/* --- 4. الفوتر الأنيق (Footer) --- */
+footer {
+  background-color: #fff0f3 !important;
+  border-top: 1px solid #ffb6c1 !important;
+  padding: 25px 15px 15px !important;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.footer-socials a {
+  color: #ff69b4;
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.footer-socials a:hover {
+  transform: scale(1.2);
+}
+
+.footer-text {
+  color: #666;
+  font-size: 0.85rem;
+  margin: 0;
+}
